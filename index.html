@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#064d3d">
+    <meta name="description" content="SILONTAR Kabupaten Rote Ndao">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'unsafe-inline'; img-src 'self' data:; frame-src https://script.google.com https://script.googleusercontent.com; base-uri 'none'; form-action 'none'">
+    <title>SILONTAR | Kabupaten Rote Ndao</title>
+    <link rel="icon" type="image/png" href="assets/logo-pemkab-rote-ndao.png">
+    <script src="config.js"></script>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: Inter, Poppins, "Segoe UI", Arial, sans-serif;
+        --green-900: #064d3d;
+        --green-700: #087a55;
+        --green-100: #ddf6ec;
+        --ink-900: #17221e;
+        --ink-600: #5b6b65;
+      }
+
+      * { box-sizing: border-box; }
+
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
+        background: #f3f6f5;
+      }
+
+      .app-frame {
+        position: fixed;
+        inset: 0;
+        z-index: 2;
+        display: block;
+        width: 100%;
+        height: 100vh;
+        height: 100dvh;
+        border: 0;
+        background: #f3f6f5;
+      }
+
+      .loader,
+      .error-panel {
+        position: fixed;
+        inset: 0;
+        z-index: 3;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        background:
+          radial-gradient(circle at 20% 10%, rgba(25, 169, 116, .17), transparent 36%),
+          linear-gradient(145deg, #f5faf8, #edf5f2);
+        transition: opacity .25s ease, visibility .25s ease;
+      }
+
+      .loader.is-hidden {
+        visibility: hidden;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .loader-card,
+      .error-card {
+        width: min(430px, 100%);
+        padding: 34px;
+        border: 1px solid rgba(6, 77, 61, .1);
+        border-radius: 24px;
+        background: rgba(255, 255, 255, .94);
+        box-shadow: 0 24px 70px rgba(17, 62, 48, .14);
+        text-align: center;
+      }
+
+      .loader-card img,
+      .error-card img {
+        width: 74px;
+        height: 82px;
+        margin: 0 auto 18px;
+        object-fit: contain;
+      }
+
+      h1 {
+        margin: 0;
+        color: var(--green-900);
+        font-size: 26px;
+        letter-spacing: .06em;
+      }
+
+      p {
+        margin: 10px 0 0;
+        color: var(--ink-600);
+        font-size: 14px;
+        line-height: 1.65;
+      }
+
+      .spinner {
+        width: 38px;
+        height: 38px;
+        margin: 24px auto 0;
+        border: 4px solid var(--green-100);
+        border-top-color: var(--green-700);
+        border-radius: 50%;
+        animation: spin .8s linear infinite;
+      }
+
+      .error-panel { display: none; z-index: 4; }
+      .error-panel.is-visible { display: grid; }
+
+      .button {
+        display: inline-flex;
+        min-height: 44px;
+        align-items: center;
+        justify-content: center;
+        margin-top: 22px;
+        padding: 11px 18px;
+        color: #fff;
+        border-radius: 11px;
+        background: var(--green-700);
+        font-size: 14px;
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      @keyframes spin { to { transform: rotate(360deg); } }
+
+      @media (prefers-reduced-motion: reduce) {
+        .spinner { animation-duration: 1.8s; }
+        .loader { transition: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="loader" id="loader" role="status" aria-live="polite">
+      <div class="loader-card">
+        <img src="assets/logo-pemkab-rote-ndao.png" alt="Logo Pemerintah Kabupaten Rote Ndao">
+        <h1>SILONTAR</h1>
+        <p id="loader-caption">Memuat layanan persampahan Kabupaten Rote Ndao…</p>
+        <div class="spinner" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <div class="error-panel" id="error-panel" role="alert">
+      <div class="error-card">
+        <img src="assets/logo-pemkab-rote-ndao.png" alt="Logo Pemerintah Kabupaten Rote Ndao">
+        <h1>SILONTAR</h1>
+        <p id="error-message">Alamat Web App belum dikonfigurasi atau aplikasi gagal dimuat.</p>
+        <a class="button" id="open-app" href="#" target="_blank" rel="noopener noreferrer">Buka aplikasi di tab baru</a>
+      </div>
+    </div>
+
+    <iframe
+      class="app-frame"
+      id="silontar-frame"
+      title="Aplikasi SILONTAR"
+      loading="eager"
+      allow="clipboard-read; clipboard-write; geolocation"
+      allowfullscreen
+      referrerpolicy="strict-origin-when-cross-origin"></iframe>
+
+    <script>
+      (function () {
+        'use strict';
+
+        var config = window.SILONTAR_HOST_CONFIG || {};
+        var webAppUrl = String(config.webAppUrl || '').trim();
+        var frame = document.getElementById('silontar-frame');
+        var loader = document.getElementById('loader');
+        var errorPanel = document.getElementById('error-panel');
+        var errorMessage = document.getElementById('error-message');
+        var openApp = document.getElementById('open-app');
+        var loadFinished = false;
+
+        function isValidWebAppUrl(value) {
+          try {
+            var url = new URL(value);
+            return url.protocol === 'https:' &&
+              url.hostname === 'script.google.com' &&
+              /\/macros\/s\/[^/]+\/exec$/.test(url.pathname);
+          } catch (error) {
+            return false;
+          }
+        }
+
+        function showError(message) {
+          errorMessage.textContent = message;
+          errorPanel.classList.add('is-visible');
+          loader.classList.add('is-hidden');
+        }
+
+        if (!isValidWebAppUrl(webAppUrl)) {
+          openApp.hidden = true;
+          showError('URL deployment Apps Script tidak valid. Perbarui webAppUrl pada file site/config.js menggunakan alamat yang berakhiran /exec.');
+          return;
+        }
+
+        openApp.href = webAppUrl;
+        frame.addEventListener('load', function () {
+          loadFinished = true;
+          window.setTimeout(function () {
+            loader.classList.add('is-hidden');
+          }, 350);
+        });
+
+        frame.src = webAppUrl;
+
+        window.setTimeout(function () {
+          if (!loadFinished) {
+            showError('Aplikasi membutuhkan waktu terlalu lama untuk dimuat. Periksa deployment Apps Script atau buka aplikasi di tab baru.');
+          }
+        }, 20000);
+      }());
+    </script>
+  </body>
+</html>
