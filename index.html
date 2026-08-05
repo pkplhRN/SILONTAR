@@ -1,0 +1,477 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#064d3d">
+    <title>SILONTAR | Layanan Persampahan Kabupaten Rote Ndao</title>
+    <meta name="description" content="Portal SILONTAR Kabupaten Rote Ndao untuk layanan persampahan, pengaduan, pelacakan tiket, peta fasilitas, serta panduan dan regulasi.">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="googlebot" content="index, follow, max-image-preview:large">
+    <link rel="canonical" href="https://pkplhrn.github.io/SILONTAR/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="id_ID">
+    <meta property="og:site_name" content="SILONTAR">
+    <meta property="og:title" content="SILONTAR | Layanan Persampahan Kabupaten Rote Ndao">
+    <meta property="og:description" content="Ajukan layanan dan pengaduan persampahan, lacak tiket, lihat peta fasilitas, serta akses panduan dan regulasi Kabupaten Rote Ndao.">
+    <meta property="og:url" content="https://pkplhrn.github.io/SILONTAR/">
+    <meta property="og:image" content="https://pkplhrn.github.io/SILONTAR/assets/logo-pemkab-rote-ndao.png">
+    <meta property="og:image:alt" content="Logo Pemerintah Kabupaten Rote Ndao">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="SILONTAR | Layanan Persampahan Kabupaten Rote Ndao">
+    <meta name="twitter:description" content="Portal layanan persampahan digital Kabupaten Rote Ndao.">
+    <meta name="twitter:image" content="https://pkplhrn.github.io/SILONTAR/assets/logo-pemkab-rote-ndao.png">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'unsafe-inline'; img-src 'self' data:; frame-src https://script.google.com https://script.googleusercontent.com; base-uri 'none'; form-action 'none'">
+    <link rel="icon" type="image/png" href="assets/logo-pemkab-rote-ndao.png">
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://pkplhrn.github.io/SILONTAR/#website",
+            "url": "https://pkplhrn.github.io/SILONTAR/",
+            "name": "SILONTAR",
+            "alternateName": "Sistem Informasi Layanan Online Terpadu Administrasi Persampahan",
+            "description": "Portal layanan persampahan digital Kabupaten Rote Ndao.",
+            "inLanguage": "id-ID",
+            "publisher": {
+              "@id": "https://pkplhrn.github.io/SILONTAR/#organization"
+            }
+          },
+          {
+            "@type": "GovernmentOrganization",
+            "@id": "https://pkplhrn.github.io/SILONTAR/#organization",
+            "name": "Dinas Perumahan, Kawasan Permukiman dan Lingkungan Hidup Kabupaten Rote Ndao",
+            "alternateName": "Dinas PKPLH Kabupaten Rote Ndao",
+            "url": "https://pkplhrn.github.io/SILONTAR/",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://pkplhrn.github.io/SILONTAR/assets/logo-pemkab-rote-ndao.png"
+            },
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "Kompleks Perkantoran Bumi Ti'i Langga Permai, Lekunik",
+              "addressLocality": "Rote Ndao",
+              "addressRegion": "Nusa Tenggara Timur",
+              "addressCountry": "ID"
+            },
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "telephone": "+62-821-4747-1767",
+              "email": "dpkplhrn@gmail.com",
+              "contactType": "layanan masyarakat",
+              "areaServed": "Kabupaten Rote Ndao",
+              "availableLanguage": "id"
+            }
+          }
+        ]
+      }
+    </script>
+    <script src="config.js"></script>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: Inter, Poppins, "Segoe UI", Arial, sans-serif;
+        --green-900: #064d3d;
+        --green-700: #087a55;
+        --green-100: #ddf6ec;
+        --ink-900: #17221e;
+        --ink-600: #5b6b65;
+      }
+
+      * { box-sizing: border-box; }
+
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
+        background: #f3f6f5;
+      }
+
+      .app-frame {
+        position: fixed;
+        inset: 0;
+        z-index: 2;
+        display: block;
+        width: 100%;
+        height: 100vh;
+        height: 100dvh;
+        border: 0;
+        background: #f3f6f5;
+      }
+
+      .loader,
+      .error-panel {
+        position: fixed;
+        inset: 0;
+        z-index: 3;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        overflow: hidden;
+        background:
+          radial-gradient(circle at 14% 12%, rgba(28, 177, 119, .2), transparent 32%),
+          radial-gradient(circle at 88% 88%, rgba(236, 183, 54, .16), transparent 30%),
+          linear-gradient(145deg, #f7fcfa 0%, #e8f5f0 54%, #f5f8ec 100%);
+        transition: opacity .25s ease, visibility .25s ease;
+      }
+
+      .loader::before,
+      .loader::after {
+        position: absolute;
+        width: 260px;
+        height: 260px;
+        border: 1px solid rgba(8, 122, 85, .12);
+        border-radius: 50%;
+        content: "";
+        pointer-events: none;
+      }
+
+      .loader::before {
+        top: -138px;
+        right: -80px;
+        box-shadow: 0 0 0 38px rgba(255, 255, 255, .18), 0 0 0 76px rgba(8, 122, 85, .035);
+      }
+
+      .loader::after {
+        bottom: -165px;
+        left: -70px;
+        box-shadow: 0 0 0 42px rgba(255, 255, 255, .22), 0 0 0 84px rgba(236, 183, 54, .035);
+      }
+
+      .loader.is-hidden {
+        visibility: hidden;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .loader-card,
+      .error-card {
+        width: min(430px, 100%);
+        padding: 38px 34px 32px;
+        border: 1px solid rgba(255, 255, 255, .82);
+        border-radius: 30px;
+        background: rgba(255, 255, 255, .9);
+        box-shadow: 0 30px 80px rgba(17, 62, 48, .16), inset 0 1px 0 #fff;
+        text-align: center;
+      }
+
+      .loader-card {
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
+        backdrop-filter: blur(14px);
+      }
+
+      .loader-card::before {
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        height: 5px;
+        background: linear-gradient(90deg, var(--green-900), #18a871 62%, #e5b331);
+        content: "";
+      }
+
+      .loader-kicker {
+        display: inline-flex;
+        min-height: 26px;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 22px;
+        padding: 5px 11px;
+        color: var(--green-900);
+        border: 1px solid rgba(8, 122, 85, .13);
+        border-radius: 999px;
+        background: rgba(221, 246, 236, .68);
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: .11em;
+      }
+
+      .loader-logo {
+        position: relative;
+        display: grid;
+        width: 112px;
+        height: 112px;
+        place-items: center;
+        margin: 0 auto 20px;
+        border: 1px solid rgba(8, 122, 85, .1);
+        border-radius: 50%;
+        background: linear-gradient(145deg, #fff, #edf8f4);
+        box-shadow: 0 14px 32px rgba(6, 77, 61, .12);
+      }
+
+      .loader-logo::before {
+        position: absolute;
+        inset: -6px;
+        border: 2px solid transparent;
+        border-top-color: rgba(8, 122, 85, .66);
+        border-right-color: rgba(229, 179, 49, .72);
+        border-radius: 50%;
+        content: "";
+        animation: orbit 4s linear infinite;
+      }
+
+      .loader-logo img {
+        width: 74px;
+        height: 82px;
+        object-fit: contain;
+      }
+
+      .error-card img {
+        width: 74px;
+        height: 82px;
+        margin: 0 auto 18px;
+        object-fit: contain;
+      }
+
+      h1 {
+        margin: 0;
+        color: var(--green-900);
+        font-size: 30px;
+        letter-spacing: .09em;
+        text-shadow: 0 2px 0 rgba(229, 179, 49, .24);
+      }
+
+      p {
+        margin: 10px 0 0;
+        color: var(--ink-600);
+        font-size: 14px;
+        line-height: 1.65;
+      }
+
+      .loader-divider {
+        display: flex;
+        width: 82px;
+        align-items: center;
+        gap: 6px;
+        margin: 16px auto 14px;
+      }
+
+      .loader-divider::before,
+      .loader-divider::after {
+        height: 1px;
+        flex: 1;
+        background: rgba(8, 122, 85, .22);
+        content: "";
+      }
+
+      .loader-divider i {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #e5b331;
+        box-shadow: 0 0 0 4px rgba(229, 179, 49, .12);
+      }
+
+      .loading-status {
+        margin-top: 24px;
+      }
+
+      .loading-dots {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+      }
+
+      .loading-dots span {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--green-700);
+        animation: dot-pulse 1.2s ease-in-out infinite;
+      }
+
+      .loading-dots span:nth-child(2) { animation-delay: .16s; }
+      .loading-dots span:nth-child(3) { animation-delay: .32s; }
+
+      .loading-progress {
+        width: 164px;
+        height: 5px;
+        margin: 14px auto 0;
+        overflow: hidden;
+        border-radius: 999px;
+        background: rgba(8, 122, 85, .1);
+        box-shadow: inset 0 1px 2px rgba(6, 77, 61, .08);
+      }
+
+      .loading-progress span {
+        display: block;
+        width: 48%;
+        height: 100%;
+        border-radius: inherit;
+        background: linear-gradient(90deg, var(--green-900), #19a974 64%, #e5b331);
+        box-shadow: 0 0 10px rgba(25, 169, 116, .42);
+        animation: loading-slide 1.45s ease-in-out infinite;
+      }
+
+      .loading-label {
+        display: block;
+        margin-top: 9px;
+        color: #71817b;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+      }
+
+      .error-panel { display: none; z-index: 4; }
+      .error-panel.is-visible { display: grid; }
+
+      .button {
+        display: inline-flex;
+        min-height: 44px;
+        align-items: center;
+        justify-content: center;
+        margin-top: 22px;
+        padding: 11px 18px;
+        color: #fff;
+        border-radius: 11px;
+        background: var(--green-700);
+        font-size: 14px;
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      @keyframes orbit { to { transform: rotate(360deg); } }
+
+      @keyframes dot-pulse {
+        0%, 70%, 100% { opacity: .3; transform: translateY(0) scale(.82); }
+        35% { opacity: 1; transform: translateY(-4px) scale(1); }
+      }
+
+      @keyframes loading-slide {
+        0% { transform: translateX(-115%); }
+        55% { transform: translateX(72%); }
+        100% { transform: translateX(225%); }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .loader-logo::before,
+        .loading-dots span,
+        .loading-progress span { animation: none; }
+        .loading-progress span { width: 68%; }
+        .loader { transition: none; }
+      }
+
+      @media (max-width: 480px) {
+        .loader,
+        .error-panel { padding: 18px; }
+        .loader-card,
+        .error-card { padding: 32px 24px 28px; border-radius: 26px; }
+        .loader-kicker { margin-bottom: 19px; font-size: 9px; }
+        .loader-logo { width: 104px; height: 104px; }
+        h1 { font-size: 27px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="loader" id="loader" role="status" aria-live="polite">
+      <div class="loader-card">
+        <span class="loader-kicker">DINAS PKPLH KABUPATEN ROTE NDAO</span>
+        <div class="loader-logo">
+          <img src="assets/logo-pemkab-rote-ndao.png" alt="Logo Pemerintah Kabupaten Rote Ndao">
+        </div>
+        <h1>SILONTAR</h1>
+        <div class="loader-divider" aria-hidden="true"><i></i></div>
+        <p id="loader-caption">Portal layanan persampahan digital Kabupaten Rote Ndao.</p>
+        <div class="loading-status" aria-hidden="true">
+          <div class="loading-dots"><span></span><span></span><span></span></div>
+          <div class="loading-progress"><span></span></div>
+          <small class="loading-label">Memuat aplikasi...</small>
+        </div>
+      </div>
+    </div>
+
+    <noscript>
+      <div class="error-panel is-visible">
+        <div class="error-card">
+          <img src="assets/logo-pemkab-rote-ndao.png" alt="Logo Pemerintah Kabupaten Rote Ndao">
+          <h1>SILONTAR</h1>
+          <p>Portal layanan persampahan digital Kabupaten Rote Ndao.</p>
+          <a class="button" href="https://script.google.com/macros/s/AKfycbzqrKUATenTShHhfSNlPHChH03OQzPAyNr0F1o5Tdim73yn9Nna99eJcarMwpf1kjbXfA/exec">Buka aplikasi SILONTAR</a>
+        </div>
+      </div>
+    </noscript>
+
+    <div class="error-panel" id="error-panel" role="alert">
+      <div class="error-card">
+        <img src="assets/logo-pemkab-rote-ndao.png" alt="Logo Pemerintah Kabupaten Rote Ndao">
+        <h1>SILONTAR</h1>
+        <p id="error-message">Alamat Web App belum dikonfigurasi atau aplikasi gagal dimuat.</p>
+        <a class="button" id="open-app" href="#" target="_blank" rel="noopener noreferrer">Buka aplikasi di tab baru</a>
+      </div>
+    </div>
+
+    <iframe
+      class="app-frame"
+      id="silontar-frame"
+      title="Aplikasi SILONTAR"
+      loading="eager"
+      allow="clipboard-read; clipboard-write; geolocation"
+      allowfullscreen
+      referrerpolicy="strict-origin-when-cross-origin"></iframe>
+
+    <script>
+      (function () {
+        'use strict';
+
+        var config = window.SILONTAR_HOST_CONFIG || {};
+        var webAppUrl = String(config.webAppUrl || '').trim();
+        var frame = document.getElementById('silontar-frame');
+        var loader = document.getElementById('loader');
+        var errorPanel = document.getElementById('error-panel');
+        var errorMessage = document.getElementById('error-message');
+        var openApp = document.getElementById('open-app');
+        var loadFinished = false;
+
+        function isValidWebAppUrl(value) {
+          try {
+            var url = new URL(value);
+            return url.protocol === 'https:' &&
+              url.hostname === 'script.google.com' &&
+              /\/macros\/s\/[^/]+\/exec$/.test(url.pathname);
+          } catch (error) {
+            return false;
+          }
+        }
+
+        function showError(message) {
+          errorMessage.textContent = message;
+          errorPanel.classList.add('is-visible');
+          loader.classList.add('is-hidden');
+        }
+
+        if (!isValidWebAppUrl(webAppUrl)) {
+          openApp.hidden = true;
+          showError('URL deployment Apps Script tidak valid. Perbarui webAppUrl pada file config.js menggunakan alamat yang berakhiran /exec.');
+          return;
+        }
+
+        openApp.href = webAppUrl;
+        frame.addEventListener('load', function () {
+          loadFinished = true;
+          window.setTimeout(function () {
+            loader.classList.add('is-hidden');
+          }, 350);
+        });
+
+        frame.src = webAppUrl;
+
+        window.setTimeout(function () {
+          if (!loadFinished) {
+            showError('Aplikasi membutuhkan waktu terlalu lama untuk dimuat. Periksa deployment Apps Script atau buka aplikasi di tab baru.');
+          }
+        }, 20000);
+      }());
+    </script>
+  </body>
+</html>
