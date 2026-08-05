@@ -4,10 +4,73 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="theme-color" content="#064d3d">
-    <meta name="description" content="SILONTAR Kabupaten Rote Ndao">
+    <title>SILONTAR | Layanan Persampahan Kabupaten Rote Ndao</title>
+    <meta name="description" content="Portal SILONTAR Kabupaten Rote Ndao untuk layanan persampahan, pengaduan, pelacakan tiket, peta fasilitas, serta panduan dan regulasi.">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="googlebot" content="index, follow, max-image-preview:large">
+    <link rel="canonical" href="https://pkplhrn.github.io/SILONTAR/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="id_ID">
+    <meta property="og:site_name" content="SILONTAR">
+    <meta property="og:title" content="SILONTAR | Layanan Persampahan Kabupaten Rote Ndao">
+    <meta property="og:description" content="Ajukan layanan dan pengaduan persampahan, lacak tiket, lihat peta fasilitas, serta akses panduan dan regulasi Kabupaten Rote Ndao.">
+    <meta property="og:url" content="https://pkplhrn.github.io/SILONTAR/">
+    <meta property="og:image" content="https://pkplhrn.github.io/SILONTAR/assets/logo-pemkab-rote-ndao.png">
+    <meta property="og:image:alt" content="Logo Pemerintah Kabupaten Rote Ndao">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="SILONTAR | Layanan Persampahan Kabupaten Rote Ndao">
+    <meta name="twitter:description" content="Portal layanan persampahan digital Kabupaten Rote Ndao.">
+    <meta name="twitter:image" content="https://pkplhrn.github.io/SILONTAR/assets/logo-pemkab-rote-ndao.png">
     <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'unsafe-inline'; img-src 'self' data:; frame-src https://script.google.com https://script.googleusercontent.com; base-uri 'none'; form-action 'none'">
-    <title>SILONTAR | Kabupaten Rote Ndao</title>
     <link rel="icon" type="image/png" href="assets/logo-pemkab-rote-ndao.png">
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://pkplhrn.github.io/SILONTAR/#website",
+            "url": "https://pkplhrn.github.io/SILONTAR/",
+            "name": "SILONTAR",
+            "alternateName": "Sistem Informasi Layanan Online Terpadu Administrasi Persampahan",
+            "description": "Portal layanan persampahan digital Kabupaten Rote Ndao.",
+            "inLanguage": "id-ID",
+            "publisher": {
+              "@id": "https://pkplhrn.github.io/SILONTAR/#organization"
+            }
+          },
+          {
+            "@type": "GovernmentOrganization",
+            "@id": "https://pkplhrn.github.io/SILONTAR/#organization",
+            "name": "Dinas Perumahan, Kawasan Permukiman dan Lingkungan Hidup Kabupaten Rote Ndao",
+            "alternateName": "Dinas PKPLH Kabupaten Rote Ndao",
+            "url": "https://pkplhrn.github.io/SILONTAR/",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://pkplhrn.github.io/SILONTAR/assets/logo-pemkab-rote-ndao.png"
+            },
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "Kompleks Perkantoran Bumi Ti'i Langga Permai, Lekunik",
+              "addressLocality": "Rote Ndao",
+              "addressRegion": "Nusa Tenggara Timur",
+              "addressCountry": "ID"
+            },
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "telephone": "+62-821-4747-1767",
+              "email": "dpkplhrn@gmail.com",
+              "contactType": "layanan masyarakat",
+              "areaServed": "Kabupaten Rote Ndao",
+              "availableLanguage": "id"
+            }
+          }
+        ]
+      }
+    </script>
     <script src="config.js"></script>
     <style>
       :root {
@@ -96,6 +159,12 @@
         line-height: 1.65;
       }
 
+      .loader-detail {
+        margin-top: 8px;
+        color: var(--ink-900);
+        font-size: 13px;
+      }
+
       .spinner {
         width: 38px;
         height: 38px;
@@ -137,10 +206,22 @@
       <div class="loader-card">
         <img src="assets/logo-pemkab-rote-ndao.png" alt="Logo Pemerintah Kabupaten Rote Ndao">
         <h1>SILONTAR</h1>
-        <p id="loader-caption">Memuat layanan persampahan Kabupaten Rote Ndao…</p>
+        <p id="loader-caption">Portal layanan persampahan digital Kabupaten Rote Ndao.</p>
+        <p class="loader-detail">Ajukan layanan atau pengaduan, lacak tiket, lihat peta fasilitas, dan akses dokumen publik.</p>
         <div class="spinner" aria-hidden="true"></div>
       </div>
     </div>
+
+    <noscript>
+      <div class="error-panel is-visible">
+        <div class="error-card">
+          <img src="assets/logo-pemkab-rote-ndao.png" alt="Logo Pemerintah Kabupaten Rote Ndao">
+          <h1>SILONTAR</h1>
+          <p>SILONTAR adalah portal layanan persampahan Kabupaten Rote Ndao untuk permohonan layanan, pengaduan masyarakat, pelacakan tiket, peta fasilitas, panduan, SOP, dan regulasi.</p>
+          <a class="button" href="https://script.google.com/macros/s/AKfycbzqrKUATenTShHhfSNlPHChH03OQzPAyNr0F1o5Tdim73yn9Nna99eJcarMwpf1kjbXfA/exec">Buka aplikasi SILONTAR</a>
+        </div>
+      </div>
+    </noscript>
 
     <div class="error-panel" id="error-panel" role="alert">
       <div class="error-card">
@@ -192,7 +273,7 @@
 
         if (!isValidWebAppUrl(webAppUrl)) {
           openApp.hidden = true;
-          showError('URL deployment Apps Script tidak valid. Perbarui webAppUrl pada file site/config.js menggunakan alamat yang berakhiran /exec.');
+          showError('URL deployment Apps Script tidak valid. Perbarui webAppUrl pada file config.js menggunakan alamat yang berakhiran /exec.');
           return;
         }
 
