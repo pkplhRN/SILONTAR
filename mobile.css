@@ -1,0 +1,42 @@
+:root {
+  color-scheme: light;
+  font-family: system-ui, "Segoe UI", sans-serif;
+  color: #17221e;
+  background: #f3f8f5;
+  --forest: #064d3d;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { margin: 0; min-height: 100vh; min-height: 100dvh; }
+.mobile-shell { display: flex; flex-direction: column; height: 100vh; height: 100dvh; }
+.app-bar {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4px 12px;
+  padding: calc(4px + env(safe-area-inset-top)) max(10px, env(safe-area-inset-right)) 4px max(10px, env(safe-area-inset-left));
+  background: var(--forest); color: white;
+}
+.brand, nav { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.brand strong { letter-spacing: .08em; font-size: .875rem; }
+nav { gap: 4px 8px; }
+button, .app-bar a {
+  display: inline-flex; align-items: center; gap: 4px; min-height: 44px;
+  font: inherit; font-size: .875rem; font-weight: 650; text-decoration: none; border-radius: 8px;
+}
+button { padding: 0 12px; border: 1px solid #afd7c7; color: var(--forest); background: #edf9f4; cursor: pointer; }
+.app-bar a { color: #fff; padding: 0 4px; }
+.app-bar :focus-visible { outline: 2px solid #ffd672; outline-offset: 2px; }
+.connection { margin: 0; padding: 8px 14px; background: #fff1cd; color: #4f3505; font-size: .875rem; }
+.mobile-shell main { display: grid; grid-template-rows: minmax(0, 1fr); flex: 1; min-height: 0; overflow: auto; padding-bottom: env(safe-area-inset-bottom); }
+#app-frame { width: 100%; height: 100%; min-height: 0; border: 0; background: white; }
+.panel {
+  align-self: center; justify-self: center; width: min(calc(100% - 32px), 28rem); margin: 24px 0;
+  padding: clamp(18px, 6vw, 32px); border: 1px solid #d9e9e1; border-radius: 18px; background: white;
+  text-align: center; box-shadow: 0 10px 32px #064d3d14;
+}
+h1, h2 { color: var(--forest); }
+h1 { font-size: 1.45rem; }
+h2 { margin-top: 0; font-size: 1.2rem; }
+p { line-height: 1.5; }
+dialog { width: min(calc(100% - 32px), 26rem); border: 1px solid #d9e9e1; border-radius: 16px; padding: 24px; }
+dialog::backdrop { background: #122a23a0; }
+.offline-page { display: grid; place-items: center; min-height: 100dvh; }
+.offline-page a { color: var(--forest); font-weight: 700; }
